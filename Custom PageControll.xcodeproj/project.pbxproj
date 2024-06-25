@@ -15,6 +15,10 @@
 		FCDFE8712C2AE51200DECDD8 /* SliderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDFE8702C2AE51200DECDD8 /* SliderItem.swift */; };
 		FCDFE8732C2AEAED00DECDD8 /* UIColor + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDFE8722C2AEAED00DECDD8 /* UIColor + Ext.swift */; };
 		FCDFE8782C2AEF3600DECDD8 /* SliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDFE8772C2AEF3600DECDD8 /* SliderCell.swift */; };
+		FCDFE87B2C2B09E800DECDD8 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = FCDFE87A2C2B09E800DECDD8 /* Lottie */; };
+		FCDFE87F2C2B142200DECDD8 /* Animation3.json in Resources */ = {isa = PBXBuildFile; fileRef = FCDFE87C2C2B142200DECDD8 /* Animation3.json */; };
+		FCDFE8802C2B142200DECDD8 /* Animation1.json in Resources */ = {isa = PBXBuildFile; fileRef = FCDFE87D2C2B142200DECDD8 /* Animation1.json */; };
+		FCDFE8812C2B142200DECDD8 /* Animation2.json in Resources */ = {isa = PBXBuildFile; fileRef = FCDFE87E2C2B142200DECDD8 /* Animation2.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +32,9 @@
 		FCDFE8702C2AE51200DECDD8 /* SliderItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderItem.swift; sourceTree = "<group>"; };
 		FCDFE8722C2AEAED00DECDD8 /* UIColor + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Ext.swift"; sourceTree = "<group>"; };
 		FCDFE8772C2AEF3600DECDD8 /* SliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderCell.swift; sourceTree = "<group>"; };
+		FCDFE87C2C2B142200DECDD8 /* Animation3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Animation3.json; sourceTree = "<group>"; };
+		FCDFE87D2C2B142200DECDD8 /* Animation1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Animation1.json; sourceTree = "<group>"; };
+		FCDFE87E2C2B142200DECDD8 /* Animation2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Animation2.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCDFE87B2C2B09E800DECDD8 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +76,9 @@
 				FCDFE8652C2ADD2F00DECDD8 /* Assets.xcassets */,
 				FCDFE8672C2ADD2F00DECDD8 /* LaunchScreen.storyboard */,
 				FCDFE86A2C2ADD2F00DECDD8 /* Info.plist */,
+				FCDFE87D2C2B142200DECDD8 /* Animation1.json */,
+				FCDFE87E2C2B142200DECDD8 /* Animation2.json */,
+				FCDFE87C2C2B142200DECDD8 /* Animation3.json */,
 			);
 			path = "Custom PageControll";
 			sourceTree = "<group>";
@@ -113,6 +124,9 @@
 			dependencies = (
 			);
 			name = "Custom PageControll";
+			packageProductDependencies = (
+				FCDFE87A2C2B09E800DECDD8 /* Lottie */,
+			);
 			productName = "Custom PageControll";
 			productReference = FCDFE8592C2ADD2E00DECDD8 /* Custom PageControll.app */;
 			productType = "com.apple.product-type.application";
@@ -141,6 +155,9 @@
 				Base,
 			);
 			mainGroup = FCDFE8502C2ADD2E00DECDD8;
+			packageReferences = (
+				FCDFE8792C2B09E800DECDD8 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			productRefGroup = FCDFE85A2C2ADD2E00DECDD8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -155,7 +172,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCDFE8802C2B142200DECDD8 /* Animation1.json in Resources */,
+				FCDFE8812C2B142200DECDD8 /* Animation2.json in Resources */,
 				FCDFE8692C2ADD2F00DECDD8 /* LaunchScreen.storyboard in Resources */,
+				FCDFE87F2C2B142200DECDD8 /* Animation3.json in Resources */,
 				FCDFE8662C2ADD2F00DECDD8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -391,6 +411,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FCDFE8792C2B09E800DECDD8 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = exactVersion;
+				version = 4.4.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FCDFE87A2C2B09E800DECDD8 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FCDFE8792C2B09E800DECDD8 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FCDFE8512C2ADD2E00DECDD8 /* Project object */;
 }

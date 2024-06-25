@@ -10,15 +10,15 @@ import UIKit
 class ViewController: UIViewController {
     
     private let sliderData: [SliderItem] = [
-    SliderItem(color: "#f19066", title: "Slide 1",
+    SliderItem(color: "#0E0F54", title: "Slide 1",
                text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod",
-               animationName: ""),
+               animationName: "Animation1"),
     SliderItem(color: "#778beb", title: "Slide 2",
                text: "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-               animationName: ""),
-    SliderItem(color: "#34ace0", title: "Slide 3",
-               text: "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-               animationName: "")
+               animationName: "Animation2"),
+    SliderItem(color: "#351458", title: "Slide 3",
+               text: "dolore magna aliqua. Ut enim ad minim veniam",
+               animationName: "Animation3")
     ]
     
     lazy var sliderCollectionView: UICollectionView = {
@@ -57,6 +57,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
         let item = sliderData[indexPath.item]
         cell.contentView.backgroundColor = UIColor(hexaRGBA: item.color)
         cell.configureCell(title: item.title, text: item.text)
+        cell.setupAnimation(name: item.animationName)
         return cell
     }
     

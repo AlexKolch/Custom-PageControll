@@ -21,6 +21,8 @@ class ViewController: UIViewController {
                animationName: "Animation3")
     ]
     
+    private var tagViews = [UIView]()
+    
     lazy var sliderCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: view.frame.width, height: view.frame.height)
@@ -35,14 +37,71 @@ class ViewController: UIViewController {
         collection.isPagingEnabled = true
         return collection
     }()
+    
+    lazy var skipBtn: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("Skip", for: .normal)
+        btn.setTitleColor(.white, for: .normal)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        return btn
+    }()
+    
+    lazy var hStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.alignment = .leading
+        stack.distribution = .fillEqually
+        stack.spacing = 5
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
+    lazy var vStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.alignment = .leading
+        stack.distribution = .fillEqually
+        stack.spacing = 5
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(sliderCollectionView)
+        configurePageControl()
         setLayout()
     }
 
-
+    private func configurePageControl() {
+        view.addSubview(hStack)
+        
+        let indicatorStack = UIStackView()
+        indicatorStack.axis = .horizontal
+        indicatorStack.alignment = .center
+        indicatorStack.distribution = .fill
+        indicatorStack.spacing = 5
+        indicatorStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        for tag in 1...sliderData.count {
+            let tagView = UIView()
+            tagView.tag = tag
+            tagView.backgroundColor = .white
+            tagView.translatesAutoresizingMaskIntoConstraints = false
+            tagView.heightAnchor.constraint(equalToConstant: 10).isActive = true
+            tagView.widthAnchor.constraint(equalToConstant: 10).isActive = true
+            tagView.layer.cornerRadius = 5
+            self.tagViews.append(tagView)
+            indicatorStack.addArrangedSubview(tagView)
+        }
+        vStack.addArrangedSubview(indicatorStack)
+        vStack.addArrangedSubview(skipBtn)
+        hStack.addArrangedSubview(vStack)
+        
+        hStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        hStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        hStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
+    }
 }
 
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {

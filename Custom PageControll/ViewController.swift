@@ -23,6 +23,10 @@ class ViewController: UIViewController {
     
     private var indicatorViews = [UIView]()
     private var currentSlide = 0 //для индикации шейпа кнопки next
+    private var startProgressIndex = 0.0
+    
+    private let shape = CAShapeLayer()
+    private let animation = CABasicAnimation(keyPath: "strokeEnd")
     
     lazy var sliderCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -40,7 +44,7 @@ class ViewController: UIViewController {
     }()
     
     lazy var skipBtn: UIButton = {
-        let btn = UIButton()
+        let btn = UIButton(type: .system)
         btn.setTitle("Skip", for: .normal)
         btn.setTitleColor(.white, for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
@@ -95,6 +99,7 @@ class ViewController: UIViewController {
         view.addSubview(sliderCollectionView)
         configurePageControl()
         setLayout()
+        setShapeLayer()
     }
     
     @objc func toSlide(sender: UIGestureRecognizer) {
@@ -144,6 +149,29 @@ class ViewController: UIViewController {
         hStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         hStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
     }
+    
+    private func setShapeLayer() {
+        let point = UIBezierPath(arcCenter: CGPoint(x: 25, y: 25), radius: 23, startAngle: -(.pi/2), endAngle: 5, clockwise: true)
+        
+        shape.path = point.cgPath
+        shape.fillColor = UIColor.clear.cgColor
+        shape.strokeColor = UIColor.white.cgColor
+        shape.lineWidth = 3
+        shape.lineCap = .round
+        shape.strokeStart = 0.0
+        shape.strokeEnd = 0.0
+        
+        nextBtn.layer.addSublayer(shape)
+    }
+    
+    private func setBasicAnimation(from valueA: CGFloat, to valueB: CGFloat) {
+        animation.fromValue = valueA
+        animation.toValue = valueB
+        animation.isRemovedOnCompletion = false //не удалять после анимации
+        animation.fillMode = .forwards
+        animation.duration = 0.5
+        shape.add(animation, forKey: nil)
+    }
 }
 
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -183,6 +211,11 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
             
             view.heightAnchor.constraint(equalToConstant: 10).isActive = true
         }
+        
+        //Логика анимации прогресса
+        let progressIndex = CGFloat(1) / CGFloat(sliderData.count) * CGFloat(indexPath.item + 1) //index for indicator progress
+        setBasicAnimation(from: startProgressIndex, to: progressIndex)
+        startProgressIndex = progressIndex
     }
 }
 

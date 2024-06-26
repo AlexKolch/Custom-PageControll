@@ -21,7 +21,8 @@ class ViewController: UIViewController {
                animationName: "Animation3")
     ]
     
-    private var tagViews = [UIView]()
+    private var indicatorViews = [UIView]()
+    private var currentSlide = 0 //для индикации шейпа кнопки next
     
     lazy var sliderCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -46,11 +47,34 @@ class ViewController: UIViewController {
         return btn
     }()
     
+    lazy var nextBtn: UIView = {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(nextSlide))
+        let nextImg = UIImageView()
+        nextImg.image = UIImage(systemName: "chevron.right.circle.fill")
+        nextImg.tintColor = .white
+        nextImg.contentMode = .scaleAspectFit
+        nextImg.translatesAutoresizingMaskIntoConstraints = false
+        nextImg.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        nextImg.widthAnchor.constraint(equalToConstant: 45).isActive = true
+        
+        let btn = UIView()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        btn.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        btn.isUserInteractionEnabled = true
+        btn.addGestureRecognizer(tapGesture)
+        btn.addSubview(nextImg)
+        
+        nextImg.centerYAnchor.constraint(equalTo: btn.centerYAnchor).isActive = true
+        nextImg.centerXAnchor.constraint(equalTo: btn.centerXAnchor).isActive = true
+        return btn
+    }()
+    
     lazy var hStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.alignment = .leading
-        stack.distribution = .fillEqually
+        stack.distribution = .fill
         stack.spacing = 5
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
@@ -72,6 +96,23 @@ class ViewController: UIViewController {
         configurePageControl()
         setLayout()
     }
+    
+    @objc func toSlide(sender: UIGestureRecognizer) {
+        //UIGestureRecognizer умеет хранить в себе вью на которое нажали. Достаем оттуда тег
+        if let selectedViewTag = sender.view?.tag {
+            sliderCollectionView.scrollToItem(at: IndexPath(item: selectedViewTag, section: 0), at: .centeredHorizontally, animated: true)
+            
+            self.currentSlide = selectedViewTag //записываем в переменную тег выделенной вью. Нужно для анимации шейпа кнопки
+        }
+    }
+    
+    @objc func nextSlide() {
+        let maxSlide = sliderData.count - 1 //чтобы не выйти за пределы массива при скролле ячеек
+        
+        if currentSlide < maxSlide {
+            sliderCollectionView.scrollToItem(at: IndexPath(item: currentSlide + 1, section: 0), at: .centeredHorizontally, animated: true)
+        }
+    }
 
     private func configurePageControl() {
         view.addSubview(hStack)
@@ -83,20 +124,21 @@ class ViewController: UIViewController {
         indicatorStack.spacing = 5
         indicatorStack.translatesAutoresizingMaskIntoConstraints = false
         
-        for tag in 1...sliderData.count {
+        for tag in 0...sliderData.count - 1 {
             let tagView = UIView()
             tagView.tag = tag
             tagView.backgroundColor = .white
             tagView.translatesAutoresizingMaskIntoConstraints = false
-            tagView.heightAnchor.constraint(equalToConstant: 10).isActive = true
-            tagView.widthAnchor.constraint(equalToConstant: 10).isActive = true
             tagView.layer.cornerRadius = 5
-            self.tagViews.append(tagView)
+            tagView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(toSlide)))
+            self.indicatorViews.append(tagView)
             indicatorStack.addArrangedSubview(tagView)
         }
+        
         vStack.addArrangedSubview(indicatorStack)
         vStack.addArrangedSubview(skipBtn)
         hStack.addArrangedSubview(vStack)
+        hStack.addArrangedSubview(nextBtn)
         
         hStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         hStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
@@ -120,7 +162,28 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
         return cell
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        currentSlide = indexPath.item //каждый раз определяем текущий слайд по индексу отображаемой ячейки, для индикатора
+        
+        //если тег view совпал с индексом cell то он будет выделяться
+        indicatorViews.forEach { view in
+            let tag = view.tag //нужен для сравнения тегов
+            //Хак: при каждом новом отображении ячейки будут обнуляться старые констрейнты и выставляться новые в зависимости от условия if ниже
+            view.constraints.forEach { constr in
+                view.removeConstraint(constr)
+            }
+            
+            if indexPath.item == tag {
+                view.layer.opacity = 1
+                view.widthAnchor.constraint(equalToConstant: 20).isActive = true
+            } else {
+                view.layer.opacity = 0.5
+                view.widthAnchor.constraint(equalToConstant: 10).isActive = true
+            }
+            
+            view.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        }
+    }
 }
 
 private extension ViewController {

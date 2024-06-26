@@ -151,9 +151,16 @@ class ViewController: UIViewController {
     }
     
     private func setShapeLayer() {
-        let point = UIBezierPath(arcCenter: CGPoint(x: 25, y: 25), radius: 23, startAngle: -(.pi/2), endAngle: 5, clockwise: true)
+        let stroke = UIBezierPath(arcCenter: CGPoint(x: 25, y: 25), radius: 23, startAngle: -(.pi/2), endAngle: 5, clockwise: true)
         
-        shape.path = point.cgPath
+        let track = CAShapeLayer()
+        track.path = stroke.cgPath
+        track.fillColor = UIColor.clear.cgColor
+        track.strokeColor = UIColor.white.cgColor
+        track.lineWidth = 3
+        track.opacity = 0.1
+        
+        shape.path = stroke.cgPath
         shape.fillColor = UIColor.clear.cgColor
         shape.strokeColor = UIColor.white.cgColor
         shape.lineWidth = 3
@@ -161,6 +168,7 @@ class ViewController: UIViewController {
         shape.strokeStart = 0.0
         shape.strokeEnd = 0.0
         
+        nextBtn.layer.addSublayer(track)
         nextBtn.layer.addSublayer(shape)
     }
     

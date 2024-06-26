@@ -10,15 +10,15 @@
 				<key>location-parameters</key>
 				<dict>
 					<key>EndingColumnNumber</key>
-					<string>23</string>
+					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>214</string>
+					<string>223</string>
 					<key>StartingColumnNumber</key>
-					<string>6</string>
+					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>214</string>
+					<string>222</string>
 					<key>Timestamp</key>
-					<string>741099424.621413</string>
+					<string>741100296.547945</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -34,15 +34,16 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>  //Логика анимац</string>
+				<string>        //Логика анимации прогресса
+</string>
 				<key>leading</key>
 				<string>        }
         
-      </string>
+</string>
 				<key>trailing</key>
-				<string>ии прогресса
-        let progressIndex = CGFloat(1) / CGFloat(sliderData.count) * CGFloat(indexPath.item + 1) //index for indicator progress
+				<string>        let progressIndex = CGFloat(1) / CGFloat(sliderData.count) * CGFloat(indexPath.item + 1) //index for indicator progress
         setBasicAnimation(from: startProgressIndex, to: progressIndex)
+        startProgressIndex = progressIndex
 </string>
 			</dict>
 			<key>title</key>
@@ -56,15 +57,15 @@
 				<key>location-parameters</key>
 				<dict>
 					<key>EndingColumnNumber</key>
-					<string>48</string>
+					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>199</string>
+					<string>208</string>
 					<key>StartingColumnNumber</key>
-					<string>11</string>
+					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>199</string>
+					<string>207</string>
 					<key>Timestamp</key>
-					<string>741099480.6892461</string>
+					<string>741100296.5479749</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -80,15 +81,16 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string> view.constraints.forEach { constr in</string>
+				<string>            view.constraints.forEach { constr in
+</string>
 				<key>leading</key>
 				<string>            let tag = view.tag //нужен для сравнения тегов
             //Хак: при каждом новом отображении ячейки будут обнуляться старые констрейнты и выставляться новые в зависимости от условия if ниже
-           </string>
+</string>
 				<key>trailing</key>
-				<string>
-                view.removeConstraint(constr)
+				<string>                view.removeConstraint(constr)
             }
+            
 </string>
 			</dict>
 			<key>title</key>
